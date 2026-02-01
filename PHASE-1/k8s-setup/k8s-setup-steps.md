@@ -1,5 +1,5 @@
 #  Setup K8-Cluster using kubeadm [K8 Version-->1.28.1]
-### 1. Run the script for package
+### 1. Run the script for installing package
 ```bash
 #!/bin/bash
 
