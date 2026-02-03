@@ -118,14 +118,11 @@ pipeline {
         }
         
         stage('Build & Tag Docker Image') {
-            steps {
-               script {
-                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t adijaiswal/boardshack:latest ."
-                    }
-               }
-            }
+           steps {
+              sh "docker build -t karishmasingh03/crudgame:latest ."
+             }
         }
+ 
         
         stage('Docker Image Scan') {
             steps {
@@ -142,6 +139,13 @@ pipeline {
                }
             }
         }
+        stage('Push Docker Image') {
+          steps {
+              withDockerRegistry(credentialsId: 'docker') {
+                  sh "docker push karishmasingh03/crudgame:latest"
+                 }
+             }
+        } 
         stage('Deploy To Kubernetes') {
             steps {
                withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.8.146:6443') {
@@ -198,4 +202,5 @@ pipeline {
 
 }
 ```
+
 
